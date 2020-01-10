@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/assets/css/login.css">
+    <link rel="icon" href="/static/assets/img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <style>
+    .alertcustom{
+        border: solid 1px red;
+        text-align: center;
+        padding:5px;
+        font-size:1rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: red;
+    }
+    </style>
+</head>
+<body>
+        <div class="background-wrap">
+                <div class="background"></div>
+              </div>
+              
+              <form id="accesspanel" action="{% url 'login' %}" method="post">
+                  {% csrf_token %}
+                <h1 id="litheader">Login</h1>
+                <div class="alertcustom">
+                    {{msg}}
+                </div>
+                <div class="inset">
+                  <p>
+                    <input type="text" name="user_id" id="user_id" placeholder="User ID">
+                  </p>
+                  <p>
+                    <input type="password" name="password" id="password" placeholder="Password">
+                  </p>
+                  <input class="loginLoginValue" type="hidden" name="service" value="login" />
+                </div>
+                <p class="p-container">
+                  <input type="submit" name="Login" id="go" value="Authorize">
+                </p>
+              </form>
+    
+</body>
+<script>
+    $(document).ready(function() {
+  var state = false;
+
+  //$("input:text:visible:first").focus();
+
+  $("#accesspanel").on("submit", function(e) {
+    e.preventDefault();
+
+    state = !state;
+
+    if (state) {
+      document.getElementById("litheader").className = "poweron";
+      document.getElementById("go").className = "";
+      document.getElementById("go").value = "Initializing...";
+    } else {
+      document.getElementById("litheader").className = "";
+      document.getElementById("go").className = "denied";
+      document.getElementById("go").value = "Access Denied";
+    }
+  });
+});
+
+</script>
+</html>
+
